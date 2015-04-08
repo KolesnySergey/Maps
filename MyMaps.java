@@ -23,21 +23,21 @@ class MyMaps
 		}
 		
 		System.out.println("\nС пользовательским классом: ");
-		Map<Integer,MyClass> newMap = new LinkedHashMap<Integer,MyClass>();
-		newMap.put(0, new MyClass("Строка 1"));
-		newMap.put(1, new MyClass("Строка 2"));
-		newMap.put(2, new MyClass("Строка 3"));
+		Map<MyClass, String> newMap = new LinkedHashMap<MyClass, String>();
+		newMap.put(new MyClass("Строка 1"), "q");
+		newMap.put(new MyClass("Строка 2"), "w");
+		newMap.put(new MyClass("Строка 3"), "e");
 		
-		for (Integer key : newMap.keySet()) 
+		for (MyClass key : newMap.keySet()) 
 		{
-			System.out.println(key + " => " + newMap.get(key).str);
+			System.out.println(key.str + " => " + newMap.get(key));
 		}
 		
 		System.out.println("\nДобавляю элемент класса с таким же значение поля: ");
-		newMap.put(2, new MyClass("Строка 3"));
-		for (Integer key : newMap.keySet()) 
+		newMap.put(new MyClass("Строка 3"), "e");
+		for (MyClass key : newMap.keySet()) 
 		{
-			System.out.println(key + " => " + newMap.get(key).str);
+			System.out.println(key.str + " => " + newMap.get(key));
 		}
 	}
 }
@@ -48,6 +48,19 @@ class MyClass
 	public MyClass(String str)
 	{
 		this.str = str;
+	}
+	
+	@Override
+	public int hashCode()
+	{
+		int hash = 30;
+		return hash * 17;
+	}
+	
+	@Override
+	public boolean equals(Object obj)
+	{
+		return this.str.equals(((MyClass)obj).str);
 	}
 	
 	
